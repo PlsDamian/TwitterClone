@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+</head>
+<body>
+    <h1>Welcome to the Homepage</h1>
+
+    <!-- Tweet Submission Form -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post Tweet</button>
+    </form>
+
+    <!-- Display Tweets -->
+    <div>
+        <h2>Tweets</h2>
+        {% for tweet in tweets %}
+            <div>
+                <p><a href="{% url 'tweet_detail' tweet_id=tweet.id %}">{{ tweet.content }}</a></p>
+                {% if tweet.media %}
+                    <img src="{{ tweet.media.url }}" alt="Tweet Media">
+                {% endif %}
+                <p>Posted by: {{ tweet.user.username }}</p>
+                <form action="{% url 'like_tweet' tweet.id %}" method="post">
+                    <p>Likes: {{ tweet.get_like_count }}</p>
+                    {% csrf_token %}
+                    <button type="submit">Like</button>
+                </form>
+                <form action="{% url 'retweet_tweet' tweet.id %}" method="post">
+                    {% csrf_token %}
+                    <p>Retweets: {{ tweet.get_retweet_count }}</p>
+                    <button type="submit">Retweet</button>
+                </form>
+                <a href="{% url 'reply_to_tweet' tweet.id %}">Reply</a>
+                <p>Replies: {{ tweet.get_comment_count }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

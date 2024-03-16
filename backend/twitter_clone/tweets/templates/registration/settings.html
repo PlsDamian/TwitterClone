@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Settings</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Settings</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="id_username">Username:</label>
+            <input type="text" name="username" id="id_username" value="{{ user.username }}"><br>
+
+            <label for="id_email">Email:</label>
+            <input type="email" name="email" id="id_email" value="{{ user.email }}"><br>
+
+            <label for="id_first_name">First Name:</label>
+            <input type="text" name="first_name" id="id_first_name" value="{{ user.first_name }}"><br>
+
+            <label for="id_last_name">Last Name:</label>
+            <input type="text" name="last_name" id="id_last_name" value="{{ user.last_name }}"><br>
+
+            <label for="id_avatar">Avatar:</label>
+            <input type="file" name="avatar" id="id_avatar" value="{{ user.avatar }}"><br>
+
+            <label for="id_display_name">Display Name:</label>
+            <input type="text" name="display_name" id="id_display_name" value="{{ user.display_name }}"><br>
+
+            <label for="id_user_id">User ID:</label>
+            <input type="text" name="user_id" id="id_user_id" value="{{ user.user_id }}"><br>
+
+            <label for="id_bio">Bio:</label>
+            <textarea name="bio" id="id_bio" rows="4">{{ user.bio }}</textarea><br>
+
+            <label for="id_old_password">Old Password:</label>
+            <input type="password" name="old_password" id="id_old_password"><br>
+
+            <label for="id_new_password1">New Password:</label>
+            <input type="password" name="new_password1" id="id_new_password1"><br>
+
+            <label for="id_new_password2">Confirm New Password:</label>
+            <input type="password" name="new_password2" id="id_new_password2"><br>
+
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</body>
+</html>
